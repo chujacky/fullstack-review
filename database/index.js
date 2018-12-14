@@ -6,10 +6,11 @@ let repoSchema = mongoose.Schema({
     type: Number,
     unique:true;
   }
-  user: String,
+  name: String,
   description: String,
   repo: String,
-  followers: 0
+  user: String,
+  forks: 0
 
 });
 

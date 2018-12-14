@@ -14,17 +14,20 @@ app.post('/repos', function (req, res) {
   // save the repo information in the database
 
   git.getReposByUsername(req.body.username, (err, response, body) => {
-    var repos = [];
-
-    // for (var i = 0; i < body.length; i++) {
-    //   var repo = body[i];
-    //   var obj = {
-    //     repo_id: repo.id
-    //   }
-    //   repos.push(obj);
-    // }
-    
-    console.log(body[1]);
+    var data = [];
+    var repos = JSON.parse(body);
+    for (var i = 0; i < repos.length; i++) {
+      var repo = repos[i];
+      var obj = {
+        repo_id: repo.id,
+        name: repo.name,
+        description: repo.description,
+        repo: repo.html_url,
+        user: repo.owner.login,
+        forks: repo.forks
+      }
+      data.push(obj);
+    }
     res.status(200).send('posted')
   });
 });
