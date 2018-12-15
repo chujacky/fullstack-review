@@ -3,3 +3,7 @@
 	border:1px solid gainsboro;
 	width:40%;
 }
+
+.repo:hover{
+  background-color: salmon
+}

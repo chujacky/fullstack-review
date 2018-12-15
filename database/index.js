@@ -10,8 +10,7 @@ let repoSchema = mongoose.Schema({
   description: String,
   repo: String,
   user: String,
-  forks: 0
-
+  forks: Number
 });
 
 let Repo = mongoose.model('Repo', repoSchema);
@@ -21,15 +20,16 @@ let save = (repos, cb) => {
   // This function should save a repo or repos to
   // the MongoDB
   Repo.insertMany(repos, (err, docs) => {
-    if (err) {
+    if (err){
       cb(err);
-    }
-    Repo.count({}, cb);
+      return;
+    } 
+    cb(null, docs)
   });
 }
 
 let load = (cb) => {
-  Repo.find({}).limit(25).sort({forks:-1}).exec((err, docs) => {
+  Repo.find({}).sort({forks:-1}).limit(25).exec((err, docs) => {
     if (err) {
       cb(err);
     }

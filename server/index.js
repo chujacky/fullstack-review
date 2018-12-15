@@ -30,11 +30,13 @@ app.post('/repos', function (req, res) {
       }
       data.push(obj);
     }
-    Repo.save(data, (err, count) => {
-      console.log(count);
+    Repo.save(data, (err, docs) => {
+      if (err){
+        console.log(err);
+      }
+      res.status(201).json(docs);
     });
 
-    res.status(201).send('success');
   });
 });
 
