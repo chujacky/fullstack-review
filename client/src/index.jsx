@@ -13,6 +13,18 @@ class App extends React.Component {
 
   }
 
+  componentDidMount() {
+    $.ajax({
+      url: 'http://localhost:1128/repos',
+      method:'GET',
+      success: (data) => {
+        this.setState({
+          repos:data
+        })
+      }
+    })
+  }
+
   search (term) {
     console.log(`${term} was searched`);
     // TODO
@@ -27,8 +39,8 @@ class App extends React.Component {
   render () {
     return (<div>
       <h1>Github Fetcher</h1>
-      <RepoList repos={this.state.repos}/>
       <Search onSearch={this.search.bind(this)}/>
+      <RepoList repos={this.state.repos}/>
     </div>)
   }
 }
